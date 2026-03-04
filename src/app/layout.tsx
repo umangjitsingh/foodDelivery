@@ -7,6 +7,8 @@ import {Outfit,
 import "./globals.css";
 import React from "react";
 import Provider from "@/app/Provider";
+import StoreProvider from "@/redux/StoreProvider";
+import Me from "@/CLIENT----SERVER/meInit";
 
 const outfit=Outfit({
     variable:"--font-outfit",
@@ -42,10 +44,13 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${outfit.variable} ${pacifico.variable} ${cedarville_cursive.variable} `}>
         <body
-            className="  min-h-screen w-full"
+            className="  min-h-[200vh] w-full"
         >
         <Provider>
-            {children}
+            <StoreProvider>
+                <Me/>
+                {children}
+            </StoreProvider>
         </Provider>
 
         </body>

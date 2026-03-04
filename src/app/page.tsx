@@ -4,6 +4,12 @@ import {auth} from "@/auth"
 import {redirect} from "next/navigation";
 import EditMobileRole from "@/COMPONENTS/EditMobile&Role";
 import Navbar from "@/COMPONENTS/Navbar";
+import UserDashboard
+	from "@/COMPONENTS/Dashboard/UserDashboard";
+import DeliveryDashboard
+	from "@/COMPONENTS/Dashboard/DeliveryDashboard";
+import AdminDashboard
+	from "@/COMPONENTS/Dashboard/AdminDashboard";
 
 async function Home() {
 
@@ -20,7 +26,14 @@ async function Home() {
 const plainUser=JSON.parse(JSON.stringify(user))
 	return (
 		< >
+
+
 			<Navbar user={plainUser}/>
+			{user.role == "User" ? (
+				<UserDashboard/>
+			):user.role == "Delivery Boy" ? (
+				<DeliveryDashboard/>
+			):<AdminDashboard/>}
 		</>
 	);
 }

@@ -10,17 +10,22 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
+    "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.5",
     "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.9.0",
     "framer-motion": "^12.34.3",
     "mongoose": "^9.1.6",
     "motion": "^12.34.0",
     "next": "16.1.6",
     "next-auth": "^5.0.0-beta.30",
+    "ogl": "^1.0.11",
     "phosphor-icons": "^1.4.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "swr": "^2.4.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

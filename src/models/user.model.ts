@@ -42,8 +42,8 @@ const UserSchema=new mongoose.Schema<UserInterface>({
     },
     role:{
         type:String,
-        enum:["user","deliverBoy","admin"],
-        default:"user"
+        enum:["User","Delivery Boy","Admin"],
+        default:"User"
     }
 },{timestamps:true});
 

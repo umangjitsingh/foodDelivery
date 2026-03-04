@@ -51,7 +51,8 @@ setLoading(true)
 				password: formData?.password
 			})
 			console.log("Registered:", response);
-			setLoading(false)
+			setLoading(false);
+			router.push("/login")
 
 		} catch (err) {
 			console.log(err)

@@ -18,7 +18,7 @@ const connectDB = async  ()=> {
     }
 
     if (!global.mongoose.promise) {
-
+        
         // @ts-ignore
         global.mongoose.promise =  connect(mongoDB_url,{
                 dbName: "FoodDelivery"
