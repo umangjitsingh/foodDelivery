@@ -23,6 +23,7 @@ import {signOut} from "next-auth/react";
 import {MdLogout} from "react-icons/md";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import {useRouter} from "next/navigation";
 
 interface UserInterface {
 	_id?: mongoose.Types.ObjectId
@@ -43,9 +44,11 @@ function Navbar({user}: { user: UserInterface }) {
 	const toggleButtonRef = useRef<HTMLDivElement | null>(null);
 	const [hamburgerOpen,setHamburgerOpen]=useState(false);
 	const [mounted, setMounted] = useState(false);
+	const router=useRouter();
 		const cartQuantity = useSelector((state: RootState) =>
 			Object.values(state.cart.items).reduce((sum, item) => sum + item.quantity, 0)
 		);
+
 	useEffect(() => {
 		setMounted(true);
 	}, []);
@@ -192,10 +195,10 @@ function Navbar({user}: { user: UserInterface }) {
 			<div className="flex relative items-center gap-3 md:gap-4  ">
 					{user.role == "User" && (
 						<Link
-							href="/"
+							href="/user/cart"
 							className="relative hover:scale-105 bg-white rounded-full w-11 h-11 flex items-center justify-center shadow-md transition-transform duration-200 cursor-pointer"
 						>
-								<FaCartShopping className="text-green-800 w-5 h-4" />
+								<FaCartShopping className="text-green-800 w-5 h-4"  />
 								<span className="absolute right-1 top-1 bg-red-600 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
       {cartQuantity}
     </span>

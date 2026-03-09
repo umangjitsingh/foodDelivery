@@ -4,10 +4,9 @@ import CategorySlider from "@/COMPONENTS/CategorySlider";
 import GroceryItemCard from "@/COMPONENTS/GroceryItemCard";
 import Grocery from "@/models/grocery.model";
 import connectDB from "@/lib/Database";
-import {ObjectId} from "bson";
 
 export interface IGrocery {
-		_id: ObjectId;
+		_id: string;
 		name: string;
 		price: string;
 		unit: string;

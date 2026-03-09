@@ -44,7 +44,7 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${outfit.variable} ${pacifico.variable} ${cedarville_cursive.variable} `}>
         <body
-            className="  min-h-[200vh] w-full"
+            className=" h-screen w-full"
         >
         <Provider>
             <StoreProvider>

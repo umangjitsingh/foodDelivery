@@ -51,3 +51,22 @@
     -ms-overflow-style: none;
     scrollbar-width:none;
 }
+
+/* Make the zoom and compass buttons smaller */
+.maplibregl-ctrl-group button {
+    width: 20px !important;
+    height: 20px !important;
+    padding: 0 !important;
+}
+
+/* Make the icons inside scale down */
+.maplibregl-ctrl-zoom-in::before,
+.maplibregl-ctrl-zoom-out::before,
+.maplibregl-ctrl-compass::before {
+    transform: scale(0.7);
+}
+
+/* Optional: shrink the compass rotation ring */
+.maplibregl-ctrl-compass {
+    transform: scale(0.9);
+}

@@ -1,0 +1,1 @@
+const REVERSE_ADDRESS_API="https://nominatim.openstreetmap.org/reverse?lat=<value>&lon=<value>&<params>"
