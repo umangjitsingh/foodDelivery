@@ -22,7 +22,8 @@ import {RootState} from "@/redux/store";
 import {GoHomeFill} from "react-icons/go";
 import axios from "axios";
 import {TbCurrentLocation} from "react-icons/tb";
-import {FaRegCreditCard} from "react-icons/fa";
+import {useRouter} from "next/navigation";
+import mongoose from "mongoose";
 
 const Map = dynamic(() => import("@/COMPONENTS/Map"), {ssr: false});
 
@@ -43,7 +44,7 @@ function Checkout() {
 		const [search, setSearch] = useState("");
 		const [currentCoords, setCurrentCoords] = useState<[number, number] | null>(null);
 		const myCart = useSelector((state: RootState) => state.cart)
-		console.log("myCart->", myCart)
+		const router = useRouter()
 
 		// Load user data
 		useEffect(() => {
@@ -127,6 +128,40 @@ function Checkout() {
 				}
 		}
 
+		async function handlePayment() {
+				try {
+						if(!coordinates)return;
+						const result = await axios.post("/api/user/order", {
+								userId: userData?._id,
+								items: Object.values(myCart.items).map((item) => {
+										return {
+												grocery:item?._id,
+												name:item.name,
+												price:item.price,
+												unit:item.unit,
+												image:item.image,
+												quantity:item.quantity
+										}
+								}),
+								totalAmount:myCart.grandTotal,
+								address:{
+										fullName:userDetails.fullName,
+										mobile:userDetails.mobile,
+										city:userDetails.city,
+										state:userDetails.state,
+										pincode:userDetails.pincode,
+										fullAddress:userDetails.fullAddress,
+										latitude:coordinates[1] ,
+										longitude:coordinates[0]
+								}
+
+						})
+						console.log(result.data)
+				} catch (e) {
+						console.log(e)
+				}
+		}
+
 		return (
 			<div className="text-white w-[92%] md:w-[80%] mx-auto py-10 relative rounded-2xl">
 
@@ -170,7 +205,7 @@ function Checkout() {
 															<input
 																type="text"
 																value={userDetails.fullName}
-																readOnly
+																onChange={()=>setUserDetails((prev) => ({...prev, fullName: e.target.value}))}
 																className="bg-gray-50 border border-gray-300 focus:border-gray-500 focus:ring-1 focus:ring-gray-400 transition-all py-2.5 pl-12 pr-4 w-full rounded-lg text-gray-900"
 
 															/>
@@ -314,8 +349,7 @@ function Checkout() {
 											<motion.div
 												initial={{opacity: 0, y: 60, scale: 0.9}}
 												animate={{opacity: 1, y: 0, scale: 1}}
-												className="bg-linear-to-br from-gray-100 to-gray-200 rounded-2xl
-          shadow-md p-6 border border-gray-300 sticky top-24"
+												className="bg-linear-to-br from-gray-100 to-gray-200 rounded-2xl shadow-md p-6 border border-gray-300 sticky top-24"
 											>
 													<h2 className="text-lg sm:text-xl font-bold text-gray-950 mb-4">
 															Order Summary
@@ -341,9 +375,8 @@ function Checkout() {
               </span>
 															</div>
 															<button
-																className="bg-gray-900 hover:bg-gray-800 text-white py-2.5 px-6
-              rounded-lg shadow-sm transition-all"
-
+																className="bg-gray-900 hover:bg-gray-800 text-white py-2.5 px-6 rounded-lg shadow-sm transition-all"
+																onClick={() => handlePayment()}
 															>
 																	Pay now
 															</button>
